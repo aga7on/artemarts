@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Артём - Видеомонтаж</title>
+    <style>
+        /* Общие стили */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #f0f0f0;
+            display: flex;  
+            width: 100%;       
+        }
+
+        a {
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        /* Стили фона */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            display: block; 
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(34, 68, 51, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+
+        /* Стили для анимации */
+        #animation-container {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            background-color: rgba(34, 68, 51, 0.75); /* Цвет фона */
+        }
+
+        /* Стили главной карточки */
+        .main-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px 60px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            margin-left: 20px; 
+            margin-right: 20px; 
+        }
+
+        .main-card h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .main-card p {
+            font-size: 1.2em;
+        }
+
+        /* Синие ссылки в блоке .social-links */
+        .social-links a {
+            color: #3498db; 
+        }
+
+        /* Стили кнопок */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #f0f0f0;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: rgba(34, 68, 51, 0.9);
+            cursor: pointer;
+        }
+
+.work-section {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    margin-left: 20px; 
+    margin-right: 20px; 
+    transition: opacity 0.3s ease, max-height 0.3s ease; 
+    opacity: 0;
+    height: 0; 
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+        .work-section.active {
+            opacity: 1;
+            height: auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .video-item {
+            text-align: center;
+        }
+
+        .video-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+		
+		/* Стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #224433;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Стили для прокрутки внутри модального окна */
+        .modal-body {
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        /* Дополнительные стили для мобильной версии */
+        @media (max-width: 768px) {
+            .btn-container {
+                flex-direction: column; 
+                align-items: stretch; 
+            }
+
+    .work-section {
+        display: none;
+        position: static;
+    }
+
+			#video-background {
+    display: none; 
+  }
+}
+
+            .grid-container {
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="animation-container">
+    <video src="animation.webm" alt="Анимация" loop autoplay muted></video> 
+</div>
+
+    <div class="overlay">
+        <div class="main-card">
+            <h1>Артём</h1>
+            <p>Профессиональный видеомонтаж в Davinci Resolve</p>
+            <div class="social-links">
+                <a href="https://t.me/aga7on" target="_blank">Telegram</a> | 
+                <a href="https://vk.com/club226047788" target="_blank">ВКонтакте</a> |
+                <a href="mailto:artyom.baranov97@gmail.com">Написать на почту</a> |
+                <span>artyom.baranov97@gmail.com</span> 
+            </div>
+        </div>
+
+	<div class="btn-container">
+		<div class="btn" onclick="openModal('portfolioModal')">Портфолио</div>
+		<div class="btn" onclick="openModal('personalModal')">Личные работы</div>
+		<div class="btn" onclick="openModal('aboutModal')">Обо мне</div>
+		<div class="btn" onclick="openModal('socialModal')">Соц. сети</div>
+	</div>
+
+        <div id="portfolioModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('portfolioModal')">&times;</span>
+                <h2>Портфолио</h2>
+                <div class="modal-body">
+                    <div class="grid-container">
+                        <!-- Блок 1 -->
+        <div class="video-item">
+          <a href="https://youtu.be/XD6s3OxfMLI" target="_blank">
+            <img src="https://img.youtube.com/vi/XD6s3OxfMLI/maxresdefault.jpg" alt="Спорт: Хоккей">
+          </a>
+          <p>Спорт: Хоккей</p>
+        </div>
+        <!-- Блок 2 -->
+        <div class="video-item">
+          <a href="https://youtu.be/FwdU2WNI-hc" target="_blank">
+            <img src="https://img.youtube.com/vi/FwdU2WNI-hc/maxresdefault.jpg" alt="Спорт: Соревнования">
+          </a>
+          <p>Спорт: Соревнования</p>
+        </div>
+        <!-- Блок 3 -->
+        <div class="video-item">
+          <a href="https://youtu.be/EtIWy-w6rYU" target="_blank">
+            <img src="https://img.youtube.com/vi/EtIWy-w6rYU/maxresdefault.jpg" alt="Спорт: Бокс">
+          </a>
+          <p>Спорт: Бокс</p>
+        </div>
+        <!-- Блок 4 -->
+        <div class="video-item">
+          <a href="https://youtu.be/bqxxbkjQd64" target="_blank">
+            <img src="https://img.youtube.com/vi/bqxxbkjQd64/maxresdefault.jpg" alt="Мероприятия: Наталья Поклонская">
+          </a>
+          <p>Мероприятия: Наталья Поклонская</p>
+        </div>
+        <!-- Блок 5 -->
+        <div class="video-item">
+          <a href="https://youtu.be/QFaE7Dh_RD0" target="_blank">
+            <img src="https://img.youtube.com/vi/QFaE7Dh_RD0/maxresdefault.jpg" alt="Мероприятия: Мария Третьякова">
+          </a>
+          <p>Мероприятия: Мария Третьякова</p>
+        </div>
+        <!-- Блок 6 -->
+        <div class="video-item">
+          <a href="https://youtu.be/FH_tr2bFPL8" target="_blank">
+            <img src="https://img.youtube.com/vi/FH_tr2bFPL8/maxresdefault.jpg" alt="Мероприятия: Егор Сальников">
+          </a>
+          <p>Мероприятия: Егор Сальников</p>
+        </div>
+        <!-- Блок 7 -->
+        <div class="video-item">
+          <a href="https://youtu.be/3KPVNmPlcXQ" target="_blank">
+            <img src="https://img.youtube.com/vi/3KPVNmPlcXQ/maxresdefault.jpg" alt="Новости: Урожай">
+          </a>
+          <p>Новости: Урожай</p>
+        </div>
+        <!-- Блок 8 -->
+        <div class="video-item">
+          <a href="https://youtu.be/-edHhi65Pkc" target="_blank">
+            <img src="https://img.youtube.com/vi/-edHhi65Pkc/maxresdefault.jpg" alt="Новости: День поля">
+          </a>
+          <p>Новости: День поля</p>
+        </div>
+        <!-- Блок 9 -->
+        <div class="video-item">
+          <a href="https://youtu.be/Lfk55oahN0g" target="_blank">
+            <img src="https://img.youtube.com/vi/Lfk55oahN0g/maxresdefault.jpg" alt="Новости: АгроЭкспоКрым">
+          </a>
+          <p>Новости: АгроЭкспоКрым</p>
+        </div>
+                        <!-- Добавьте остальные блоки по аналогии -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="personalModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('personalModal')">&times;</span>
+                <h2>Личные работы</h2>
+                <div class="modal-body">
+                    <div class="grid-container">
+        <!-- Блок 1 -->
+        <div class="video-item">
+          <a href="https://youtu.be/Tj_BLcuLLVw?si=lSsy7m8um7W2gQ1W" target="_blank">
+            <img src="https://imgur.com/u50mm7p.jpg" alt="Название работы 1">
+          </a>
+          <p>Памятное видео по игре</p>
+        </div>
+        <!-- Блок 2 -->
+        <div class="video-item">
+          <a href="https://www.youtube.com/watch?v=KYT5kUHy1J0&" target="_blank">
+            <img src="https://imgur.com/R65PDeY.jpg" alt="Название работы 2">
+          </a>
+          <p>Памятное видео по игре</p>
+        </div>
+		<div class="video-item">
+          <a href="https://youtu.be/c0NTaXssc0g?si=ruvBw4t4NsZI_GaU"_blank">
+            <img src="https://imgur.com/YH717Nd.jpg" alt="Название работы 3">
+          </a>
+          <p>Локальные мемы</p>
+        </div>
+                </div>
+            </div>
+        </div>
+		</div>
+
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+                <h2>Обо мне</h2>
+                <div class="modal-body">
+                    <p><b>Меня зовут Артём.</b> С раннего возраста я увлекаюсь созданием видео, чаще всего черпаю вдохновение из различных источников. :) Кроме видео, с детства обожаю слушать музыку. Люблю старые игры 00х, в них есть какая-то душа, и шарм. Помимо видео монтажа, работал на телеканале, поэтому в разделе "Портфолио" все новости были сняты мной, и смонтированы там же. А в разделе "Личные работы" можно ознакомиться с моим творчеством, где я публикую, и буду дальше дополнять не только видео материал, но и аудио, демо записи, возможно художественные изваяния в том числе. 
+
+        <br><br><b>Начал заниматься видеомонтажом</b> лет в 11 наверное. Моё первое видео было про "червячков", в народе Worms Mayhem, с дества мне нравилось изучать возможности и лазейки в играх, и это стало первой темой моего ролика, но к сожалению, это видео было утеряно во времени. С тех пор я по немногу, с разным переменным успехом создаю что-то творческое для души.
+
+        <br><br><b>На телеканале</b> я в основном занимался съёмками новостей, но именно там я получил свой первый и бесценный опыт в работе с камерой. Благодаря этому опыту я интуитивно понимаю какие кадры и планы наилучшим образом лягут в линию монтажа.
+
+        <br><br><b>В монтаже</b> предпочитаю размеренный стиль, когда всё происходит вовремя, и динамика плавно меняется со статикой. Но лучше всего ознакомиться с моим стилем работы можно в моем Портфолио.
+
+        <br><br><b>Если вам интересно сотрудничество, вы можете связаться со мной в Telegram, ВКонтакте, или написать на почту.</b></p>
+        <div class="photo-container">
+          <img src="photo.jpg" alt="Фото Артёма"> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div id="socialModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('socialModal')">&times;</span>
+                <h2>Прайс-лист</h2>
+                <div class="modal-body">
+                    <p>
+<b>Цена: от 3000 до 5000 рублей. <br>
+Включает:</b><br>
+<li>Нарезку видео по таймлайну или на ваше усмотрение.
+<li>Цветокоррекцию.
+<li>Исправление звука.
+<li>Наложение музыки.<br><br>
+<b>2. Стандартный пакет:</b>
+<br>
+<b>Цена: от 5000 до 8000 рублей.<br>
+Включает:</b><br><br>
+<li>Все услуги из базового пакета.
+<li>Очистку звука от шума.
+<li>Синхронизацию видео с музыкой.<br><br>
+<b>3. Премиум пакет:<br>
+Цена: от 8000 рублей.<br>
+Включает:</b><br><br>
+<li>Все услуги из стандартного пакета.
+<li>Дополнительные эффекты и анимация.
+<li>Создание титров и графики.<br>
+
+<br>Каждый заказ мы обсудим в индивидуальном порядке. Вместе доведем ваш проект до полного вашего удовлетворения ! ! !
+</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    </script>
+
+</body>
+</html>
