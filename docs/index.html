@@ -124,12 +124,6 @@
             height: auto;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
         .video-item {
             text-align: center;
         }
@@ -159,7 +153,7 @@
             padding: 20px;
             border-radius: 15px;
             width: 90%;
-            max-width: 600px;
+            max-width: 900px; /*увеличил размер окна, что бы умещались все 3 блока*/
         }
 
         .close {
@@ -183,12 +177,21 @@
             overflow-y: auto;
         }
 
+        .grid-container { /* Убрал лишнее объявление стилей */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+        }
+
         /* Дополнительные стили для мобильной версии */
         @media (max-width: 768px) {
             .btn-container {
                 flex-direction: column; 
                 align-items: stretch; 
             }
+			.grid-container {
+				grid-template-columns: repeat(2, 1fr); /* 2 столбца на планшетах */
+			}
 
     .work-section {
         display: none;
@@ -200,9 +203,7 @@
   }
 }
 
-            .grid-container {
-                grid-template-columns: 1fr; 
-            }
+            
         }
 
         @media (max-width: 480px) {
@@ -237,72 +238,89 @@
 		<div class="btn" onclick="openModal('socialModal')">Прайс-лист</div>
 	</div>
 
-        <div id="portfolioModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('portfolioModal')">&times;</span>
-                <h2>Портфолио</h2>
-                <div class="modal-body">
-                    <div class="grid-container">
-                        <!-- Блок 1 -->
+<div id="portfolioModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('portfolioModal')">&times;</span>
+    <h2>Портфолио</h2>
+    <div class="modal-body grid-container">
         <div class="video-item">
           <a href="https://youtu.be/XD6s3OxfMLI" target="_blank">
-            <img src="https://img.youtube.com/vi/XD6s3OxfMLI/maxresdefault.jpg" alt="Спорт: Хоккей">
+            <img src="https://i.ytimg.com/vi/XD6s3OxfMLI/mqdefault.jpg" alt="Спорт: Хоккей">
           </a>
           <p>Спорт: Хоккей</p>
         </div>
         <!-- Блок 2 -->
         <div class="video-item">
           <a href="https://youtu.be/FwdU2WNI-hc" target="_blank">
-            <img src="https://img.youtube.com/vi/FwdU2WNI-hc/maxresdefault.jpg" alt="Спорт: Соревнования">
+            <img src="https://i.ytimg.com/vi/FwdU2WNI-hc/mqdefault.jpg" alt="Спорт: Соревнования">
           </a>
           <p>Спорт: Соревнования</p>
         </div>
         <!-- Блок 3 -->
         <div class="video-item">
           <a href="https://youtu.be/EtIWy-w6rYU" target="_blank">
-            <img src="https://img.youtube.com/vi/EtIWy-w6rYU/maxresdefault.jpg" alt="Спорт: Бокс">
+            <img src="https://i.ytimg.com/vi/EtIWy-w6rYU/mqdefault.jpg" alt="Спорт: Бокс">
           </a>
           <p>Спорт: Бокс</p>
         </div>
         <!-- Блок 4 -->
         <div class="video-item">
           <a href="https://youtu.be/bqxxbkjQd64" target="_blank">
-            <img src="https://img.youtube.com/vi/bqxxbkjQd64/maxresdefault.jpg" alt="Мероприятия: Наталья Поклонская">
+            <img src="https://i.ytimg.com/vi/bqxxbkjQd64/mqdefault.jpg" alt="Мероприятия: Наталья Поклонская">
           </a>
           <p>Мероприятия: Наталья Поклонская</p>
         </div>
         <!-- Блок 5 -->
         <div class="video-item">
           <a href="https://youtu.be/QFaE7Dh_RD0" target="_blank">
-            <img src="https://img.youtube.com/vi/QFaE7Dh_RD0/maxresdefault.jpg" alt="Мероприятия: Мария Третьякова">
+            <img src="https://i.ytimg.com/vi/QFaE7Dh_RD0/mqdefault.jpg" alt="Мероприятия: Мария Третьякова">
           </a>
           <p>Мероприятия: Мария Третьякова</p>
         </div>
         <!-- Блок 6 -->
         <div class="video-item">
           <a href="https://youtu.be/FH_tr2bFPL8" target="_blank">
-            <img src="https://img.youtube.com/vi/FH_tr2bFPL8/maxresdefault.jpg" alt="Мероприятия: Егор Сальников">
+            <img src="https://i.ytimg.com/vi/FH_tr2bFPL8/mqdefault.jpg" alt="Мероприятия: Егор Сальников">
           </a>
-          <p>Мероприятия: Егор Сальников</p>
+          <p>Интервью: Егор Сальников</p>
+        </div>
+		<div class="video-item">
+          <a href="https://youtu.be/h91Yf_wCb4A" target="_blank">
+            <img src="https://i.ytimg.com/vi/h91Yf_wCb4A/mqdefault.jpg" alt="Интерью: Космонавт Андрей Борисенко">
+          </a>
+          <p>Интервью: Космонавт Андрей Борисенко</p>
+        </div>
+        <!-- Блок 6 -->
+        <div class="video-item">
+          <a href="https://youtu.be/lyAVYR8BoLk" target="_blank">
+            <img src="https://i.ytimg.com/vi/lyAVYR8BoLk/mqdefault.jpg" alt="Реклама: Учебный корпус Бибирево">
+          </a>
+          <p>Реклама: Учебный корпус Бибирево</p>
+        </div>
+		 <div class="video-item">
+          <a href="https://youtu.be/7npBkwEtcEY" target="_blank">
+            <img src="https://i.ytimg.com/vi/7npBkwEtcEY/mqdefault.jpg" alt="Реклама: Игра "Вы приняты"">
+          </a>
+          <p>Реклама: Игра "Вы приняты"</p>
         </div>
         <!-- Блок 7 -->
         <div class="video-item">
           <a href="https://youtu.be/3KPVNmPlcXQ" target="_blank">
-            <img src="https://img.youtube.com/vi/3KPVNmPlcXQ/maxresdefault.jpg" alt="Новости: Урожай">
+            <img src="https://i.ytimg.com/vi/3KPVNmPlcXQ/mqdefault.jpg" alt="Новости: Урожай">
           </a>
           <p>Новости: Урожай</p>
         </div>
         <!-- Блок 8 -->
         <div class="video-item">
           <a href="https://youtu.be/-edHhi65Pkc" target="_blank">
-            <img src="https://img.youtube.com/vi/-edHhi65Pkc/maxresdefault.jpg" alt="Новости: День поля">
+            <img src="https://i.ytimg.com/vi/-edHhi65Pkc/mqdefault.jpg" alt="Новости: День поля">
           </a>
           <p>Новости: День поля</p>
         </div>
         <!-- Блок 9 -->
         <div class="video-item">
           <a href="https://youtu.be/Lfk55oahN0g" target="_blank">
-            <img src="https://img.youtube.com/vi/Lfk55oahN0g/maxresdefault.jpg" alt="Новости: АгроЭкспоКрым">
+            <img src="https://i.ytimg.com/vi/Lfk55oahN0g/mqdefault.jpg" alt="Новости: АгроЭкспоКрым">
           </a>
           <p>Новости: АгроЭкспоКрым</p>
         </div>
@@ -369,32 +387,28 @@
                 <span class="close" onclick="closeModal('socialModal')">&times;</span>
                 <h2>Прайс-лист</h2>
                 <div class="modal-body">
-                    <p>
-<b>1. Стандартный пакет:<br>
-<b>Цена: от 3000 до 5000 рублей. <br>
-Включает:</b><br><br>
-<li>Нарезку видео по хронометражу (по смыслу) или по вашему таймлайну.
-<li>Медиа-монтаж. (Новости, и т.д.) 
-<li>Тик-ток. Shorts. 
-<li>Базовая цветокоррекция. 
-<li>Наложение музыки. Популярная музыка из Тик-тока. Качественная музыка без авторских прав. Музыка на ваш Выбор.<br><br>
-<b>2. Увеличенный пакет:</b>
-<br>
-<b>Цена: от 5000 до 10000 рублей.<br>
-Включает:</b><br><br>
-<li>Все услуги из базового пакета. 
-<li>Очистку речи от шума. 
-<li>Синхронизацию видео с музыкой.
-<li>Иммерсивный монтаж. Аудиальные спец. эффекты, по смыслу ролика, и т д. Работа со звуком<br><br>
-<b>3. Премиум пакет:<br>
-Цена: от 10000 рублей и выше.<br>
-Включает:</b><br><br>
-<li>Все услуги из стандартного пакета.
-<li>Дополнительные эффекты и анимация.
-<li>Создание титров и графики.<br>
+<p><strong>Цена за видео:</strong> от 5000 рублей</p>
 
-<br>Каждый заказ мы обсудим в индивидуальном порядке. Готов к любому креативу ! ! !
-</p>
+<h3>В пакет входит:</h3>
+
+<ul>
+  <li>Нарезка видео по хронометражу (по смыслу) или по вашему таймлайну.</li>
+  <li>Медиа-монтаж. (Новости, и т.д.)</li>
+  <li>Тик-ток. Shorts.</li>
+  <li>Базовая цветокоррекция.</li>
+  <li>Наложение музыки. Тик-ток. Без Авторскх Прав.</li>
+  <li>Очистка речи от шума.</li>
+  <li>Синхронизация видео с музыкой.</li>
+  <li>Иммерсивный монтаж. Аудиальные спец. эффекты, по смыслу ролика, и т д. Работа со звуком.</li>
+</ul>
+
+<h3>Дополнительно:</h3>
+
+<ul>
+  <li>Анимация и графика: от 2000 рублей</li>
+</ul>
+
+<p><strong>Давайте вместе создадим нечто особенное! 😉  Стоимость  зависит от  сложности и объема вашего проекта. Напишите мне, чтобы обсудить детали и получить персональное предложение! </strong></p>
                 </div>
             </div>
         </div>
